@@ -1,6 +1,13 @@
 import random
 import math
 
+
+def progressbar(progress: int, total: int):
+    percent = 100 * (progress / float(total))
+    bar = '*' * int(percent) + '-' * (100 - int(percent))
+    print(f"\r|{bar}| {percent:.2f}%", end="\r")
+
+
 VARIANCE_W = 0.5
 w11 = random.uniform(-VARIANCE_W, VARIANCE_W)
 w21 = random.uniform(-VARIANCE_W, VARIANCE_W)
@@ -24,7 +31,7 @@ def sigmoid(x):
     return 1.0 / (1.0 + math.exp(-x))
 
 
-def sigmoid_prime(x):  # x already sigmoided
+def sigmoid_prime(x):
     return x * (1 - x)
 
 
@@ -93,21 +100,28 @@ OUTPUTS = [
     [0]
 ]
 
-for epoch in range(1, 10001):
+print("Training Network...")
+for epoch in range(1, 100000):
+    progressbar(epoch + 1, 100000)
     indexes = [0, 1, 2, 3]
     random.shuffle(indexes)
     for j in indexes:
         learn(INPUTS[j][0], INPUTS[j][1], OUTPUTS[j][0], alpha=0.2)
 
-    if epoch % 1000 == 0:
+    if epoch % 10 == 0:
         cost = 0
         for j in range(4):
             o = predict(INPUTS[j][0], INPUTS[j][1])
             cost += (OUTPUTS[j][0] - o) ** 2
         cost /= 4
-        print("epoch", epoch, "mean squared error:", cost)
+        #print("    epoch", epoch, "mean squared error:", cost)
 
+
+print("\n results:")
 for i in range(4):
     result = predict(INPUTS[i][0], INPUTS[i][1])
+    print("\n")
     print("for input", INPUTS[i], "expected", OUTPUTS[i][0], "predicted", f"{result:4.4}", "which is",
           "correct" if round(result) == OUTPUTS[i][0] else "incorrect")
+
+
