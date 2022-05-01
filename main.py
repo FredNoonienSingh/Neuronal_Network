@@ -4,7 +4,7 @@ import math
 
 def progressbar(progress: int, total: int):
     percent = 100 * (progress / float(total))
-    bar = '█' * int(percent) + '-' * (100 - int(percent))
+    bar = '█' * int(percent) + ' ' * (100 - int(percent))
     print(f"\r|{bar}| epoch {progress} of {total} epochs", end="\r")
 
 
@@ -100,7 +100,7 @@ OUTPUTS = [
     [0]
 ]
 
-print("Network is learning...")
+print("\nNetwork is learning...\n")
 for epoch in range(1, 1000000):
     progressbar(epoch + 1, 1000000)
     indexes = [0, 1, 2, 3]
@@ -117,9 +117,9 @@ for epoch in range(1, 1000000):
         #print("    epoch", epoch, "mean squared error:", cost)
 
 
-print("\n results:")
+print("\n \nResults:\n")
 for i in range(4):
     result = predict(INPUTS[i][0], INPUTS[i][1])
-    print("for input", INPUTS[i], "expected", OUTPUTS[i][0], "predicted", f"{result:4.4}", "which is",
+    print("    for input", INPUTS[i], "expected", OUTPUTS[i][0], "predicted", f"{result:4.4}", "which is",
           "correct" if round(result) == OUTPUTS[i][0] else "incorrect")
 print('\n')
