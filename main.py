@@ -4,7 +4,7 @@ import math
 
 def progressbar(progress: int, total: int):
     percent = 100 * (progress / float(total))
-    bar = '*' * int(percent) + '-' * (100 - int(percent))
+    bar = '█' * int(percent) + '-' * (100 - int(percent))
     print(f"\r|{bar}| epoch {progress} of {total} epochs", end="\r")
 
 
@@ -100,9 +100,9 @@ OUTPUTS = [
     [0]
 ]
 
-print("Training Network...")
-for epoch in range(1, 100000):
-    progressbar(epoch + 1, 100000)
+print("Network is learning...")
+for epoch in range(1, 1000000):
+    progressbar(epoch + 1, 1000000)
     indexes = [0, 1, 2, 3]
     random.shuffle(indexes)
     for j in indexes:
@@ -120,8 +120,6 @@ for epoch in range(1, 100000):
 print("\n results:")
 for i in range(4):
     result = predict(INPUTS[i][0], INPUTS[i][1])
-    print("\n")
     print("for input", INPUTS[i], "expected", OUTPUTS[i][0], "predicted", f"{result:4.4}", "which is",
           "correct" if round(result) == OUTPUTS[i][0] else "incorrect")
-
-
+print('\n')
