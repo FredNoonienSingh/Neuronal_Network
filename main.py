@@ -5,7 +5,7 @@ import math
 def progressbar(progress: int, total: int):
     percent = 100 * (progress / float(total))
     bar = '*' * int(percent) + '-' * (100 - int(percent))
-    print(f"\r|{bar}| {percent:.2f}epoch {progress} of {total} epochs", end="\r")
+    print(f"\r|{bar}| epoch {progress} of {total} epochs", end="\r")
 
 
 VARIANCE_W = 0.5
